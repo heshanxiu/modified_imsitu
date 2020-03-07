@@ -521,7 +521,6 @@ def train_model(max_epoch, eval_frequency, train_loader, dev_loader, model, enco
     model.train()
 
     time_all = time.time()
-    max_epoch = 3000
 
     pmodel = torch.nn.DataParallel(model, device_ids=device_array)
     top1 = imSituTensorEvaluation(1, 3, encoding)
@@ -679,8 +678,8 @@ if __name__ == "__main__":
         device_array = [i for i in range(0, ngpus)]
         batch_size = args.batch_size * ngpus
 
-        train_loader = torch.utils.data.DataLoader(dataset_train, batch_size=batch_size, shuffle=True, num_workers=0)
-        dev_loader = torch.utils.data.DataLoader(dataset_dev, batch_size=batch_size, shuffle=True, num_workers=0)
+        train_loader = torch.utils.data.DataLoader(dataset_train, batch_size=batch_size, shuffle=True, num_workers=3)
+        dev_loader = torch.utils.data.DataLoader(dataset_dev, batch_size=batch_size, shuffle=True, num_workers=3)
 
         model.cuda()
         optimizer = optim.Adam(model.parameters(), lr=args.learning_rate, weight_decay=args.weight_decay)

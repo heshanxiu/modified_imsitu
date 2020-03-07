@@ -402,7 +402,7 @@ class imSituSituation(data.Dataset):
         # image_dir, eval_dataset,
         self.root = root
         self.imsitu = annotation_file
-        self.ids = list(self.imsitu.keys())[:10]
+        self.ids = list(self.imsitu.keys())
         # a list of verbs
         self.encoder = encoder
         self.transform = transform
@@ -415,6 +415,7 @@ class imSituSituation(data.Dataset):
         if img_index_path is not None:
             with open(img_index_path) as img_index:
                 self.img_index = json.load(img_index)
+
 
 
     def index_image(self, index):
@@ -436,6 +437,7 @@ class imSituSituation(data.Dataset):
                 img_ind = self.img_index[_id]
             else:
                 img_ind = -1
+
 
         if img_ind != -1 and self.level != -1:
             with h5py.File(self.feature_path, "r") as f:
